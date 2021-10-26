@@ -1,0 +1,10 @@
+precision mediump float;
+
+uniform vec4 uColor;
+
+void main() {
+    float md = mod(gl_FragCoord.y, 20.0);
+    if(md < 10.0)
+        discard;
+    gl_FragColor = uColor;
+}

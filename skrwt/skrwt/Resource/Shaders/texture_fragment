@@ -1,0 +1,24 @@
+precision highp float;
+uniform sampler2D uTexture;
+uniform float uBounds[4];
+uniform float uCropBounds[4];
+
+varying vec2 vTexPosition;
+varying float uvz;
+
+void main() {
+    if(gl_FragCoord.x < uCropBounds[0]
+            || gl_FragCoord.x > uCropBounds[1]
+            || gl_FragCoord.y < uCropBounds[2]
+            || gl_FragCoord.y > uCropBounds[3] ) {
+        discard;
+    }
+    vec4 col = texture2D(uTexture, vTexPosition / uvz);
+    if(gl_FragCoord.x < uBounds[0]
+            || gl_FragCoord.x > uBounds[1]
+            || gl_FragCoord.y < uBounds[2]
+            || gl_FragCoord.y > uBounds[3] ) {
+        col = col * 0.5;
+    }
+    gl_FragColor = col;
+}

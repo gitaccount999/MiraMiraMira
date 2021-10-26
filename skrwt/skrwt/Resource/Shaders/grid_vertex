@@ -1,0 +1,9 @@
+attribute vec4 vPosition;
+
+uniform vec2 vShift;
+
+void main() {
+    vec2 pos = vPosition.xy + vShift;
+    gl_Position = vec4(pos, 0, 1);
+}
+

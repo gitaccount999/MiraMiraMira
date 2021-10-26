@@ -1,0 +1,13 @@
+precision highp float;
+uniform vec4 vColor;
+uniform float uCX;
+uniform float uCY;
+
+void main() {
+    float d = distance(gl_FragCoord.xy, vec2(uCX, uCY));
+    float md = mod(d, 20.0);
+    if(md < 10.0)
+        discard;
+    gl_FragColor = vColor;
+}
+

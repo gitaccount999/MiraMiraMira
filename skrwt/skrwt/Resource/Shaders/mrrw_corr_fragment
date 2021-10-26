@@ -1,0 +1,11 @@
+precision highp float;
+uniform sampler2D uTexture;
+
+varying vec2 vTexPosition;
+varying float uvz;
+
+void main() {
+    vec2 pos = vTexPosition / uvz;
+    vec4 col = texture2D(uTexture, pos);
+    gl_FragColor = col;
+}

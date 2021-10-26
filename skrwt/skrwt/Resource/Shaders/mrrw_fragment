@@ -1,0 +1,50 @@
+precision highp float;
+uniform sampler2D uTexture;
+
+uniform int uMirror;
+uniform float uHShift;
+uniform float uVShift;
+
+uniform float uCX;
+uniform float uCY;
+
+varying vec2 vTexPosition;
+
+void main() {
+    vec2 pos = vTexPosition;
+    if(uMirror == 1) {
+        if(pos.x > uCX) {
+            pos.x -= uHShift;
+            pos.x = 2.0 * uCX - pos.x;
+        } else {
+            pos.x += uHShift;
+        }
+    } else if(uMirror == 2) {
+        if(pos.x < uCX) {
+            pos.x += uHShift;
+            pos.x = 2.0 * uCX - pos.x;
+        } else {
+            pos.x -= uHShift;
+        }
+    } else if(uMirror == 3) {
+        pos.x = 2.0 * uCX - pos.x;
+    } else if(uMirror == 4) {
+        if(pos.y > uCY) {
+            pos.y -= uVShift;
+            pos.y = 2.0 * uCY - pos.y;
+        } else {
+            pos.y += uVShift;
+        }
+    } else if(uMirror == 5) {
+        if(pos.y < uCY) {
+            pos.y += uVShift;
+            pos.y = 2.0 * uCY - pos.y;
+        } else {
+            pos.y -= uVShift;
+        }
+    } else if(uMirror == 6) {
+        pos.y = 2.0 * uCY - pos.y;
+    }
+    vec4 col = texture2D(uTexture, pos);
+    gl_FragColor = col;
+}
